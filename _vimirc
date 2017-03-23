@@ -1,0 +1,203 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+inoremap jj <Esc>
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+call vundle#begin('~/.vim/bundle/')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+ "Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+ "Plugin 'L9'
+" Git plugin not hosted on GitHub
+ "Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+ "Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+ "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+ "plugin 'ascenator/L9', {'name': 'newL9'}
+
+Plugin 'terryma/vim-multiple-cursors'
+
+ 
+"Plugin 'vim-scripts/Auto-Pairs'
+Plugin 'scrooloose/nerdtree'
+"Plugin 'kien/ctrlp.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'rainbow_parentheses.vim'
+Plugin 'scrooloose/nerdcommenter'
+"Plugin 'vim-addon-mw-utils'
+"Plugin 'garbas/vim-snipmate'
+Plugin 'WolfgangMehner/c-support'
+Plugin 'WolfgangMehner/lua-support'
+Plugin 'lyokha/vim-xkbswitch'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/unite.vim'
+" Unite
+let g:unite_source_history_yank_enable = 1
+nnoremap <leader>t :<C-u>Unite  -buffer-name=files   -start-insert file_rec/async:!<cr>
+nnoremap <leader>f :<C-u>Unite  -buffer-name=files   -start-insert file<cr>
+nnoremap <leader>r :<C-u>Unite  -buffer-name=mru     -start-insert file_mru<cr>
+nnoremap <leader>o :<C-u>Unite -buffer-name=outline -start-insert outline<cr>
+nnoremap <leader>y :<C-u>Unite  -buffer-name=yank    history/yank<cr>
+nnoremap <leader>e :<C-u>Unite  -buffer-name=buffer  buffer<cr>
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
+
+Plugin 'Shougo/neomru.vim'
+Plugin 'Shougo/neocomplete.vim'
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_auto_delimiter = 1
+let g:neocomplete#enable_auto_select = 0
+let g:neocomplete#enable_fuzzy_completion = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#force_overwrite_completefunc = 1
+let g:neocomplete#max_list = 10
+let g:neocomplete#use_vimproc = 1
+let g:neocomplete_enable_camel_case_completion = 0
+let g:neocomplete_enable_fuzzy_completion_start_length = 2
+
+Plugin 'Shougo/neopairs.vim'
+let g:neopairs#enable = 1
+Plugin 'Shougo/neco-syntax'
+Plugin 'Shougo/context_filetype.vim'
+Plugin 'Shougo/neoinclude.vim'
+let g:neoinclude#enable = 1
+Plugin 'Shougo/neosnippet.vim'
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+Plugin 'Shougo/neosnippet-snippets'
+
+
+
+
+
+
+" All of your Plugins must be added before the following line ||||||||| | |   |          |              |
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+" for lyokha/vim-xkbswitch:
+let g:XkbSwitchEnabled = 1 
+let g:XkbSwitchIMappings = ['ru']
+
+" filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
+" Folding settings
+set foldenable
+set foldmethod=indent
+set foldcolumn=1
+let g:vimsyn_folding='af'
+
+set langmenu=en_US.UTF-8 
+let $LANG = 'en'
+
+colorscheme darkblue
+set softtabstop =3
+set shiftwidth =3
+
+autocmd VimEnter * RainbowParenthesesToggle
+
+if has('gui_running')
+  set guifont=Courier\ New:h11
+  set guioptions-=T  " no toolbar
+  set lines=60 columns=108 "linespace=0
+endif
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+map <M-n> :NERDTreeToggle<CR>
+imap <c-y> <esc>Ji
+
+if has("multi_byte")
+if &termencoding == ""
+let &termencoding = &encoding
+endif
+set encoding=utf-8
+setglobal fileencoding=utf-8 bomb
+set fileencodings=utf-8,cp1251,koi8-r,latin1
+set fileformats=dos,unix,mac
+endif
+
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
